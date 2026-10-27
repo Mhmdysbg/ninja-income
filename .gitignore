@@ -1,0 +1,17 @@
+# Kredensial / Environment
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+*.egg-info/
+
+# Log files
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
