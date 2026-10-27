@@ -1,0 +1,35 @@
+name: Daily Ninja Income Claim
+
+on:
+  schedule:
+    # Cron GitHub memakai UTC. 02:17 UTC = 09:17 WIB (Jakarta)
+    - cron: "17 2 * * *"
+  workflow_dispatch:   # tombol "Run workflow" untuk tes manual
+
+permissions:
+  contents: read
+
+jobs:
+  claim:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Jalankan bot
+        env:
+          NH_EMAIL: ${{ secrets.NH_EMAIL }}
+          NH_PASSWORD: ${{ secrets.NH_PASSWORD }}
+          NH_SERVER: ${{ secrets.NH_SERVER }}
+          NH_ACCOUNTS: ${{ secrets.NH_ACCOUNTS }}
+        run: python bot.py
